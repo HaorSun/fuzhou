@@ -42,8 +42,8 @@
             background-color: var(--primary-color);
             top: 0;
             bottom: 0;
-            left: 50%;
-            margin-left: -2px;
+            left: 0;
+            margin-left: 9px;
         }
         .timeline-item {
             position: relative;
@@ -96,6 +96,55 @@
         }
         .location-link:hover {
             text-decoration: underline;
+        }
+        .timeline-point {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .timeline-point:hover {
+            transform: scale(1.1);
+        }
+        .timeline-point.active {
+            transform: scale(1.2);
+        }
+        .timeline-point.active .timeline-circle {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+        }
+        .timeline-point:hover .timeline-label {
+            font-weight: 600;
+        }
+        .timeline-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: absolute;
+            left: -7px;
+            transition: box-shadow 0.3s;
+        }
+        .timeline-connector {
+            position: absolute;
+            left: -1.5px;
+            width: 3px;
+            background-color: inherit;
+        }
+        .detailed-route {
+            background-color: #f8fafc;
+            border-left: 3px solid #e2e8f0;
+            padding: 0.5rem 1rem;
+            margin: 0.75rem 0 0.75rem 0.5rem;
+            font-size: 0.9rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        .transit-icon {
+            background-color: #f1f5f9;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -250,438 +299,818 @@
     <section class="container mx-auto px-4 mb-12">
         <h2 class="text-3xl font-bold text-center mb-8">详细行程安排</h2>
         
-        <div class="timeline-container">
-            <!-- 第一天行程 -->
-            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <div class="flex items-center mb-4">
-                    <div class="bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
-                        <span class="font-bold">1</span>
+        <!-- 第一天行程 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <div class="bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                    <span class="font-bold">1</span>
+                </div>
+                <h3 class="text-2xl font-semibold">第一天（2025年4月30日，周三）</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- 时间轴侧边栏 -->
+                <div class="md:col-span-1">
+                    <div class="border-l-4 border-red-500 pl-4 space-y-8 relative">
+                        <div class="timeline-point" data-target="morning1">
+                            <div class="timeline-circle bg-red-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-red-500 h-16 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-red-600 timeline-label">上午</p>
+                            <p class="text-sm text-gray-600">08:00 - 09:00</p>
+                            <p class="text-sm text-gray-600 mt-6">抵达、入住</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-car text-gray-400 mr-1"></i> 打车
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point mt-10" data-target="morning2">
+                            <div class="timeline-circle bg-red-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-red-500 h-10 top-6 absolute"></div>
+                            <p class="text-sm text-gray-600">10:00 - 12:00</p>
+                            <p class="text-sm text-gray-600 mt-2">三坊七巷</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-car text-gray-400 mr-1"></i> 打车15分钟
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="noon1">
+                            <div class="timeline-circle bg-red-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-red-500 h-10 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-red-600 timeline-label">中午</p>
+                            <p class="text-sm text-gray-600">12:00 - 13:30</p>
+                            <p class="text-sm text-gray-600 mt-2">午餐</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-utensils text-gray-400 mr-1"></i> 特色小吃
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="afternoon1">
+                            <div class="timeline-circle bg-red-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-red-500 h-16 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-red-600 timeline-label">下午</p>
+                            <p class="text-sm text-gray-600">14:00 - 16:30</p>
+                            <p class="text-sm text-gray-600 mt-2">西湖公园</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-walking text-gray-400 mr-1"></i> 步行/打车10分钟
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="evening1">
+                            <div class="timeline-circle bg-red-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <p class="text-lg font-medium text-red-600 timeline-label">晚上</p>
+                            <p class="text-sm text-gray-600">18:00 - 20:00</p>
+                            <p class="text-sm text-gray-600 mt-2">晚餐/逛街</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-car text-gray-400 mr-1"></i> 打车20分钟
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-semibold">第一天（2025年4月30日，周三）</h3>
                 </div>
                 
-                <div class="border-l-4 border-red-500 pl-4 ml-3 space-y-4">
-                    <div>
-                        <p class="text-lg font-medium text-red-600">上午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">08:00 - 09:00</span> 抵达福州，前往酒店
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-hotel mr-2 text-gray-600"></i>
-                                <span class="font-medium">酒店：</span> 福州台江区附近酒店（福建医科大学台江校区附近）
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">地址：</span> 
-                                <a href="https://uri.amap.com/marker?position=119.299796,26.068910" class="location-link ml-1" target="_blank">福建省福州市台江区（医科大学附近）</a>
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 打车前往酒店
-                            </p>
+                <!-- 详细内容 -->
+                <div class="md:col-span-3">
+                    <div class="space-y-8">
+                        <!-- 上午 -->
+                        <div id="morning1" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">抵达福州，前往酒店</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center">
+                                    <i class="fas fa-hotel mr-2 text-gray-600"></i>
+                                    <span class="font-medium">酒店：</span> 福州台江区附近酒店（福建医科大学台江校区附近）
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">地址：</span> 
+                                    <a href="https://uri.amap.com/marker?position=119.299796,26.068910" class="location-link ml-1" target="_blank">福建省福州市台江区（医科大学附近）</a>
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 打车前往酒店
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">详细路线：</span></p>
+                                    <p class="mt-1">· 从火车站：可乘坐地铁1号线到茶亭站，转乘地铁2号线到达金融街站，步行约800米到达</p>
+                                    <p class="mt-1">· 从机场：可乘坐机场大巴到福州火车站，然后按上述路线；或直接打车约40分钟到达</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="flex items-center">
-                            <i class="fas fa-clock mr-2 text-gray-600"></i>
-                            <span class="font-medium">10:00 - 12:00</span> 游览三坊七巷
-                        </p>
-                        <div class="ml-4">
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">地址：</span> 
-                                <a href="https://uri.amap.com/marker?position=119.297300,26.083639" class="location-link ml-1" target="_blank">福建省福州市鼓楼区三坊七巷</a>
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">门票：</span> 免费
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 打车前往，约15分钟车程
-                            </p>
+                        
+                        <div id="morning2" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">游览三坊七巷</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">地址：</span> 
+                                    <a href="https://uri.amap.com/marker?position=119.297300,26.083639" class="location-link ml-1" target="_blank">福建省福州市鼓楼区三坊七巷</a>
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">门票：</span> 免费
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 打车前往，约15分钟车程
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">详细路线：</span></p>
+                                    <p class="mt-1">· 打车：从酒店直接打车约15分钟即可到达，车费约20元</p>
+                                    <p class="mt-1">· 公交：从酒店步行至八一七路站，乘坐9路公交到达南后街站下车，步行约300米到达</p>
+                                    <p class="mt-1">· 地铁：乘坐地铁2号线到达南门兜站，从1号口出站步行约8分钟可到达</p>
+                                </div>
+                                <p class="flex items-center mt-3">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">建议游览时间：</span> 2小时，沿南后街-衣锦坊-光禄坊-安民巷路线游览最佳
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-red-600">中午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">12:00 - 13:30</span> 午餐
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐餐厅：</span> 三坊七巷附近特色餐厅
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-money-bill-wave mr-2 text-gray-600"></i>
-                                <span class="font-medium">人均消费：</span> 约60-80元
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐美食：</span> 福州鱼丸、芋泥、肉燕、荔枝肉
-                            </p>
+                        
+                        <!-- 中午 -->
+                        <div id="noon1" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">午餐</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐餐厅：</span> 三坊七巷附近特色餐厅
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-money-bill-wave mr-2 text-gray-600"></i>
+                                    <span class="font-medium">人均消费：</span> 约60-80元
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐美食：</span> 福州鱼丸、芋泥、肉燕、荔枝肉
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">具体餐厅推荐：</span></p>
+                                    <p class="mt-1">· 林聪记肉燕（三坊七巷店）：位于南后街，福州传统小吃</p>
+                                    <p class="mt-1">· 巷口鱼丸：位于杨桥路，老字号鱼丸店</p>
+                                    <p class="mt-1">· 老祥芋泥：位于光禄坊，百年老店</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-red-600">下午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">14:00 - 16:30</span> 游览西湖公园
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">地址：</span> 
-                                <a href="https://uri.amap.com/marker?position=119.290076,26.090952" class="location-link ml-1" target="_blank">福建省福州市鼓楼区西湖公园</a>
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">门票：</span> 免费
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 从三坊七巷步行或打车前往，约10分钟车程
-                            </p>
+                        
+                        <!-- 下午 -->
+                        <div id="afternoon1" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">游览西湖公园</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">地址：</span> 
+                                    <a href="https://uri.amap.com/marker?position=119.290076,26.090952" class="location-link ml-1" target="_blank">福建省福州市鼓楼区西湖公园</a>
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">门票：</span> 免费
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 从三坊七巷步行或打车前往，约10分钟车程
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">详细路线：</span></p>
+                                    <p class="mt-1">· 步行：从三坊七巷南后街出口出发，沿杨桥路向西北方向步行约1.5公里，大约20分钟可到达</p>
+                                    <p class="mt-1">· 打车：约10分钟到达，车费约15元</p>
+                                    <p class="mt-1">· 公交：在南后街站乘坐5路公交车至西湖公园站下车即到</p>
+                                </div>
+                                <p class="flex items-center mt-3">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">建议游览线路：</span> 湖心亭 → 放生池 → 梅园 → 碧螺春馆，游览约2小时
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-red-600">晚上</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">18:00 - 20:00</span> 晚餐
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐餐厅：</span> 台江区附近的特色餐厅
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 打车返回酒店附近，约20分钟车程
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-info-circle mr-2 text-gray-600"></i>
-                                <span class="font-medium">晚间活动：</span> 可以在台江万达广场逛街购物
-                            </p>
+                        
+                        <!-- 晚上 -->
+                        <div id="evening1" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">晚餐</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐餐厅：</span> 台江区附近的特色餐厅
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 打车返回酒店附近，约20分钟车程
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">详细路线：</span></p>
+                                    <p class="mt-1">· 从西湖公园打车返回台江区，约20分钟车程，车费约25元</p>
+                                    <p class="mt-1">· 公交：在西湖公园站乘坐54路公交车至八一七路站下车，步行约500米到台江万达广场</p>
+                                    <p class="mt-1">· 地铁：步行至鼓西街站乘坐地铁2号线至金融街站下车，步行约800米到达台江万达广场</p>
+                                </div>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-info-circle mr-2 text-gray-600"></i>
+                                    <span class="font-medium">晚间活动：</span> 可以在台江万达广场逛街购物
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">台江万达广场：</span></p>
+                                    <p class="mt-1">· 地址：福州市台江区广达路128号</p>
+                                    <p class="mt-1">· 推荐餐厅：阿田大虾（当地海鲜）、朱府铜锅（闽菜）、皇家永和鱼头火锅（福州特色）</p>
+                                    <p class="mt-1">· 购物时间：10:00-22:00，电影院营业至凌晨</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <!-- 第二天行程 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <div class="bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                    <span class="font-bold">2</span>
+                </div>
+                <h3 class="text-2xl font-semibold">第二天（2025年5月1日，周四）</h3>
+            </div>
             
-            <!-- 第二天行程 -->
-            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <div class="flex items-center mb-4">
-                    <div class="bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
-                        <span class="font-bold">2</span>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- 时间轴侧边栏 -->
+                <div class="md:col-span-1">
+                    <div class="border-l-4 border-green-600 pl-4 space-y-8 relative">
+                        <div class="timeline-point" data-target="morning2-1">
+                            <div class="timeline-circle bg-green-600 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-green-600 h-16 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-green-600">上午</p>
+                            <p class="text-sm text-gray-600">08:30 - 10:00</p>
+                            <p class="text-sm text-gray-600 mt-2">前往鼓山</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-car text-gray-400 mr-1"></i> 打车/公交约30-45分钟
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="morning2-2">
+                            <div class="timeline-circle bg-green-600 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-green-600 h-10 top-6 absolute"></div>
+                            <p class="text-sm text-gray-600">10:00 - 12:00</p>
+                            <p class="text-sm text-gray-600 mt-2">涌泉寺、白云洞</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-walking text-gray-400 mr-1"></i> 游览约2小时
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="noon2">
+                            <div class="timeline-circle bg-green-600 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-green-600 h-10 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-green-600">中午</p>
+                            <p class="text-sm text-gray-600">12:00 - 13:30</p>
+                            <p class="text-sm text-gray-600 mt-2">鼓山素斋</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-utensils text-gray-400 mr-1"></i> 寺院特色素食
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="afternoon2">
+                            <div class="timeline-circle bg-green-600 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-green-600 h-10 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-green-600">下午</p>
+                            <p class="text-sm text-gray-600">13:30 - 16:00</p>
+                            <p class="text-sm text-gray-600 mt-2">登顶鼓山</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-hiking text-gray-400 mr-1"></i> 徒步约90分钟
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="evening2">
+                            <div class="timeline-circle bg-green-600 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <p class="text-lg font-medium text-green-600">晚上</p>
+                            <p class="text-sm text-gray-600">17:00 - 20:00</p>
+                            <p class="text-sm text-gray-600 mt-2">返回市区晚餐</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-car text-gray-400 mr-1"></i> 打车约30分钟
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-semibold">第二天（2025年5月1日，周四）</h3>
                 </div>
                 
-                <div class="border-l-4 border-green-600 pl-4 ml-3 space-y-4">
-                    <div>
-                        <p class="text-lg font-medium text-green-600">上午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">08:30 - 12:00</span> 游览鼓山风景区
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">地址：</span> 
-                                <a href="https://uri.amap.com/marker?position=119.348260,26.076930" class="location-link ml-1" target="_blank">福建省福州市晋安区鼓山</a>
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">门票：</span> 约50元
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 打车前往，约30分钟车程
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-info-circle mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐景点：</span> 涌泉寺、白云洞、鼓山福建省最大佛教道场
-                            </p>
+                <!-- 详细内容 -->
+                <div class="md:col-span-3">
+                    <div class="space-y-8">
+                        <!-- 上午 -->
+                        <div id="morning2-1" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">游览鼓山风景区</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">地址：</span> 
+                                    <a href="https://uri.amap.com/marker?position=119.348260,26.076930" class="location-link ml-1" target="_blank">福建省福州市晋安区鼓山</a>
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">门票：</span> 约50元
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 打车前往，约30分钟车程
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">详细路线：</span></p>
+                                    <p class="mt-1">· 打车：从酒店直接打车约30分钟可到达鼓山景区，车费约60-80元</p>
+                                    <p class="mt-1">· 公交：从酒店步行至八一七路站，乘坐88路公交至鼓山景区站下车，约45分钟到达</p>
+                                    <p class="mt-1">· 地铁+公交：乘坐地铁1号线到达树兜站，转乘110路公交车到鼓山风景区，总用时约60分钟</p>
+                                </div>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-info-circle mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐景点：</span> 涌泉寺、白云洞、鼓山福建省最大佛教道场
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">建议游览时间：</span> 3-4小时，先游览涌泉寺，再参观白云洞
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-green-600">中午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">12:00 - 13:30</span> 午餐
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐餐厅：</span> 鼓山素斋餐厅（寺院素食）
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-money-bill-wave mr-2 text-gray-600"></i>
-                                <span class="font-medium">人均消费：</span> 约40-60元
-                            </p>
+                        
+                        <!-- 中午 -->
+                        <div id="noon2" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">午餐</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐餐厅：</span> 鼓山素斋餐厅（寺院素食）
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-money-bill-wave mr-2 text-gray-600"></i>
+                                    <span class="font-medium">人均消费：</span> 约40-60元
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">餐厅位置：</span></p>
+                                    <p class="mt-1">· 位于涌泉寺旁，步行约3分钟即可到达</p>
+                                    <p class="mt-1">· 推荐菜品：莲花素斋、山野菜、香菇汤面</p>
+                                    <p class="mt-1">· 营业时间：10:30-14:30</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-green-600">下午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">13:30 - 16:00</span> 登顶鼓山，欣赏福州全景
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-hiking mr-2 text-gray-600"></i>
-                                <span class="font-medium">活动：</span> 徒步登山，拍照留念
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-info-circle mr-2 text-gray-600"></i>
-                                <span class="font-medium">提示：</span> 带足水和零食，注意防晒
-                            </p>
+                        
+                        <!-- 下午 -->
+                        <div id="afternoon2" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">登顶鼓山，欣赏福州全景</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-hiking mr-2 text-gray-600"></i>
+                                    <span class="font-medium">活动：</span> 徒步登山，拍照留念
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-info-circle mr-2 text-gray-600"></i>
+                                    <span class="font-medium">提示：</span> 带足水和零食，注意防晒
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">登山路线：</span></p>
+                                    <p class="mt-1">· 从涌泉寺后山小道开始攀登，沿途有明确指示牌</p>
+                                    <p class="mt-1">· 登山时间：约90分钟到达山顶</p>
+                                    <p class="mt-1">· 山顶设施：有观景台和休息区，可俯瞰整个福州市区</p>
+                                    <p class="mt-1">· 下山路线：可原路返回或选择东侧缆车下山（单程票价约30元）</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-green-600">晚上</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">17:00 - 20:00</span> 返回市区，晚餐
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 打车返回市区，约30分钟车程
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐餐厅：</span> 台江区特色餐厅
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-info-circle mr-2 text-gray-600"></i>
-                                <span class="font-medium">晚间活动：</span> 台江万达广场休闲娱乐
-                            </p>
+                        
+                        <!-- 晚上 -->
+                        <div id="evening2" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">返回市区，晚餐</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 打车返回市区，约30分钟车程
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">返回路线：</span></p>
+                                    <p class="mt-1">· 打车：从鼓山景区正门打车返回台江区，约30分钟车程，费用约60-80元</p>
+                                    <p class="mt-1">· 公交：从鼓山景区站乘坐88路公交至五四路站，转乘20路公交至八一七路站下车，总用时约75分钟</p>
+                                </div>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐餐厅：</span> 可选择市区任意闽菜馆或小吃店，如聚春园、同利肉燕、安泰楼等</p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">晚餐推荐：</span></p>
+                                    <p class="mt-1">· 聚春园（南后街店）：福州传统名菜，佛跳墙、荔枝肉等，人均约120元</p>
+                                    <p class="mt-1">· 同利肉燕：福州特色小吃，肉燕汤、鱼丸等，人均约40元</p>
+                                    <p class="mt-1">· 安泰楼：老字号闽菜馆，推荐锅边糊、醉排骨等，人均约80元</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <!-- 第三天行程 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                    <span class="font-bold">3</span>
+                </div>
+                <h3 class="text-2xl font-semibold">第三天（2025年5月2日，周五）</h3>
+            </div>
             
-            <!-- 第三天行程 -->
-            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <div class="flex items-center mb-4">
-                    <div class="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
-                        <span class="font-bold">3</span>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- 时间轴侧边栏 -->
+                <div class="md:col-span-1">
+                    <div class="border-l-4 border-blue-500 pl-4 space-y-8 relative">
+                        <div class="timeline-point" data-target="morning3">
+                            <div class="timeline-circle bg-blue-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-blue-500 h-16 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-blue-500">上午</p>
+                            <p class="text-sm text-gray-600">07:30 - 09:30</p>
+                            <p class="text-sm text-gray-600 mt-2">前往平潭岛</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-bus text-gray-400 mr-1"></i> 大巴约2小时
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="morning3-2">
+                            <div class="timeline-circle bg-blue-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-blue-500 h-10 top-6 absolute"></div>
+                            <p class="text-sm text-gray-600">10:00 - 12:00</p>
+                            <p class="text-sm text-gray-600 mt-2">石牌洋景区</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-camera text-gray-400 mr-1"></i> 游览约2小时
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="noon3">
+                            <div class="timeline-circle bg-blue-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-blue-500 h-10 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-blue-500">中午</p>
+                            <p class="text-sm text-gray-600">12:30 - 14:00</p>
+                            <p class="text-sm text-gray-600 mt-2">海鲜午餐</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-fish text-gray-400 mr-1"></i> 平潭特色海鲜
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="afternoon3">
+                            <div class="timeline-circle bg-blue-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <div class="timeline-connector bg-blue-500 h-10 top-6 absolute"></div>
+                            <p class="text-lg font-medium text-blue-500">下午</p>
+                            <p class="text-sm text-gray-600">14:30 - 16:30</p>
+                            <p class="text-sm text-gray-600 mt-2">海坛古城</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-landmark text-gray-400 mr-1"></i> 游览约2小时
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-point" data-target="evening3">
+                            <div class="timeline-circle bg-blue-500 absolute top-0 left-0 -ml-1.5 mt-2"></div>
+                            <p class="text-lg font-medium text-blue-500">晚上</p>
+                            <p class="text-sm text-gray-600">17:00 - 19:30</p>
+                            <p class="text-sm text-gray-600 mt-2">返回福州</p>
+                            <div class="mt-1 ml-2 text-xs text-gray-500">
+                                <i class="fas fa-bus text-gray-400 mr-1"></i> 大巴约2小时
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-semibold">第三天（2025年5月2日，周五）</h3>
                 </div>
                 
-                <div class="border-l-4 border-blue-500 pl-4 ml-3 space-y-4">
-                    <div>
-                        <p class="text-lg font-medium text-blue-500">上午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">07:30 - 09:30</span> 从福州出发前往平潭岛
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 打车前往长途汽车站，乘坐福州-平潭大巴
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">车票：</span> 约70-90元/人
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-hourglass-half mr-2 text-gray-600"></i>
-                                <span class="font-medium">用时：</span> 约2小时
-                            </p>
+                <!-- 详细内容 -->
+                <div class="md:col-span-3">
+                    <div class="space-y-8">
+                        <!-- 上午 -->
+                        <div id="morning3" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">从福州出发前往平潭岛</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 打车前往长途汽车站，乘坐福州-平潭大巴
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">车票：</span> 约70-90元/人
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-hourglass-half mr-2 text-gray-600"></i>
+                                    <span class="font-medium">用时：</span> 约2小时
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">详细路线：</span></p>
+                                    <p class="mt-1">· 打车前往福州南站长途汽车站：从酒店打车约20分钟，费用约30元</p>
+                                    <p class="mt-1">· 购买车票：福州至平潭的班车每30分钟一班，首班7:00，末班19:00</p>
+                                    <p class="mt-1">· 推荐乘坐7:30或8:00的班车，确保有充足时间游览平潭</p>
+                                    <p class="mt-1">· 到达平潭汽车站后，可在站前广场乘坐当地公交或出租车前往景点</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="flex items-center">
-                            <i class="fas fa-clock mr-2 text-gray-600"></i>
-                            <span class="font-medium">10:00 - 12:00</span> 游览石牌洋景区
-                        </p>
-                        <div class="ml-4">
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">地址：</span> 
-                                <a href="https://uri.amap.com/marker?position=119.694098,25.582853" class="location-link ml-1" target="_blank">福建省福州市平潭县石牌洋景区</a>
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">门票：</span> 约60元
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 抵达平潭后打车前往
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-info-circle mr-2 text-gray-600"></i>
-                                <span class="font-medium">特色：</span> 有"东方爱尔兰"之称，壮观的花岗岩地貌
-                            </p>
+
+                        <div id="morning3-2" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">游览石牌洋景区</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">地址：</span> 
+                                    <a href="https://uri.amap.com/marker?position=119.694098,25.582853" class="location-link ml-1" target="_blank">福建省福州市平潭县石牌洋景区</a>
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">门票：</span> 约60元
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">详细路线：</span></p>
+                                    <p class="mt-1">· 从平潭汽车站打车前往石牌洋景区：约25分钟，费用约40元</p>
+                                    <p class="mt-1">· 公交路线：在平潭汽车站乘坐33路公交车至石牌洋站下车，约40分钟</p>
+                                    <p class="mt-1">· 景区内设施：有观景台、木栈道和休息区</p>
+                                    <p class="mt-1">· 游览重点：观赏奇特的花岗岩地貌和蓝色海湾</p>
+                                </div>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">建议游览时间：</span> 1.5-2小时
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-blue-500">中午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">12:30 - 14:00</span> 午餐
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐餐厅：</span> 平潭当地海鲜餐厅
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-money-bill-wave mr-2 text-gray-600"></i>
-                                <span class="font-medium">人均消费：</span> 约80-120元
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-fish mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐美食：</span> 平潭海蛎煎、鲜鱼、对虾
-                            </p>
+                        
+                        <!-- 中午 -->
+                        <div id="noon3" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">午餐</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐餐厅：</span> 平潭当地海鲜餐厅
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-money-bill-wave mr-2 text-gray-600"></i>
+                                    <span class="font-medium">人均消费：</span> 约80-120元
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-fish mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐美食：</span> 平潭海蛎煎、鲜鱼、对虾
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">餐厅推荐：</span></p>
+                                    <p class="mt-1">· 老渔村海鲜餐厅：位于石牌洋景区附近，步行约10分钟，特色菜有石斑鱼、海蛎煎</p>
+                                    <p class="mt-1">· 平潭鱼港：位于景区东侧约1公里处，可打车前往，约5分钟车程，鲜活海鲜</p>
+                                    <p class="mt-1">· 用餐时间：推荐12:30-14:00，避开高峰期</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-blue-500">下午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">14:30 - 16:30</span> 游览海坛古城
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">地址：</span> 
-                                <a href="https://uri.amap.com/marker?position=119.786587,25.466782" class="location-link ml-1" target="_blank">福建省福州市平潭县海坛古城</a>
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
-                                <span class="font-medium">门票：</span> 约40元
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 打车前往
-                            </p>
+                        
+                        <!-- 下午 -->
+                        <div id="afternoon3" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">游览海坛古城</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">地址：</span> 
+                                    <a href="https://uri.amap.com/marker?position=119.786587,25.466782" class="location-link ml-1" target="_blank">福建省福州市平潭县海坛古城</a>
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-ticket-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">门票：</span> 约40元
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 打车前往
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">详细路线：</span></p>
+                                    <p class="mt-1">· 从石牌洋景区打车前往海坛古城：约30分钟车程，费用约50元</p>
+                                    <p class="mt-1">· 公交路线：在石牌洋站乘坐33路公交返回平潭汽车站，转乘25路公交至海坛古城站下车，总用时约70分钟</p>
+                                    <p class="mt-1">· 景区内设施：有文化展示馆、传统民居、小吃街</p>
+                                    <p class="mt-1">· 游览重点：闽台传统建筑、妈祖文化遗址、古街道</p>
+                                </div>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">建议游览时间：</span> 2小时
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-blue-500">晚上</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">17:00 - 19:30</span> 返回福州市区
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 乘坐平潭-福州大巴返回
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">晚餐：</span> 返回福州后在酒店附近用餐
-                            </p>
+                        
+                        <!-- 晚上 -->
+                        <div id="evening3" class="scroll-mt-24">
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">返回福州市区</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通：</span> 乘坐平潭-福州大巴返回
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">返程路线：</span></p>
+                                    <p class="mt-1">· 从海坛古城打车前往平潭汽车站：约20分钟车程，费用约35元</p>
+                                    <p class="mt-1">· 购买返程车票：平潭至福州的末班车通常在19:00左右</p>
+                                    <p class="mt-1">· 推荐乘坐17:00或17:30的班车返回福州</p>
+                                    <p class="mt-1">· 到达福州南站后打车返回酒店：约25分钟车程，费用约35元</p>
+                                </div>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">晚餐：</span> 返回福州后在酒店附近用餐
+                                </p>
+                                <div class="detailed-route">
+                                    <p><i class="fas fa-info-circle text-blue-500 mr-1"></i> <span class="font-medium">晚餐推荐：</span></p>
+                                    <p class="mt-1">· 台江区万达广场美食街：多种餐厅选择，人均约60-80元</p>
+                                    <p class="mt-1">· 如果回程时间晚，可在车上小憩，返回后直接就餐</p>
+                                    <p class="mt-1">· 也可选择在酒店附近的24小时餐厅：如永和大王（台江店）、兰州拉面等</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <!-- 第四天行程 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <div class="bg-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                    <span class="font-bold">4</span>
+                </div>
+                <h3 class="text-2xl font-semibold">第四天（2025年5月3日，周六）</h3>
+            </div>
             
-            <!-- 第四天行程 -->
-            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <div class="flex items-center mb-4">
-                    <div class="bg-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
-                        <span class="font-bold">4</span>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- 时间轴侧边栏 -->
+                <div class="md:col-span-1">
+                    <div class="border-l-4 border-purple-600 pl-4 space-y-8 relative">
+                        <div class="absolute top-0 left-0 w-3 h-3 bg-purple-600 rounded-full -ml-1.5 mt-2"></div>
+                        <div>
+                            <p class="text-lg font-medium text-purple-600">上午</p>
+                            <p class="text-sm text-gray-600">09:00 - 11:30</p>
+                        </div>
+                        <div class="absolute top-1/4 left-0 w-3 h-3 bg-purple-600 rounded-full -ml-1.5"></div>
+                        <div>
+                            <p class="text-lg font-medium text-purple-600">中午</p>
+                            <p class="text-sm text-gray-600">12:00 - 13:30</p>
+                        </div>
+                        <div class="absolute top-2/4 left-0 w-3 h-3 bg-purple-600 rounded-full -ml-1.5"></div>
+                        <div>
+                            <p class="text-lg font-medium text-purple-600">下午</p>
+                            <p class="text-sm text-gray-600">14:00 - 15:30</p>
+                            <p class="text-sm text-gray-600 mt-6">16:00 - 18:00</p>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-semibold">第四天（2025年5月3日，周六）</h3>
                 </div>
                 
-                <div class="border-l-4 border-purple-600 pl-4 ml-3 space-y-4">
-                    <div>
-                        <p class="text-lg font-medium text-purple-600">上午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">09:00 - 11:30</span> 福州特产购物
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-shopping-bag mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐地点：</span> 台江步行街、三坊七巷工艺品店
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-gift mr-2 text-gray-600"></i>
-                                <span class="font-medium
-                                <span class="font-medium">推荐特产：</span> 寿山石雕、脱胎漆器、福州纸伞、茉莉花茶
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-directions mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 从酒店打车前往
-                            </p>
+                <!-- 详细内容 -->
+                <div class="md:col-span-3">
+                    <div class="space-y-8">
+                        <!-- 上午 -->
+                        <div>
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">酒店出发</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">时间：</span> 08:30 - 09:00
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通路线：</span> 乘坐出租车前往台江步行街（约15分钟，车费约25元）
+                                </p>
+                                <div class="detailed-route mt-2">
+                                    <p><i class="fas fa-info-circle text-purple-500 mr-1"></i> <span class="font-medium">详细说明：</span></p>
+                                    <p class="mt-1">· 可在酒店前台请工作人员帮忙叫车</p>
+                                    <p class="mt-1">· 周六早高峰可能会遇到轻微拥堵，建议预留5-10分钟缓冲时间</p>
+                                    <p class="mt-1">· 备选方案：使用滴滴打车App预约用车（可提前5分钟预约）</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-purple-600">中午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">12:00 - 13:30</span> 午餐
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐餐厅：</span> 福州老字号餐厅
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-utensils mr-2 text-gray-600"></i>
-                                <span class="font-medium">推荐美食：</span> 佛跳墙、锅边糊、米粉
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-money-bill-wave mr-2 text-gray-600"></i>
-                                <span class="font-medium">人均消费：</span> 约100-150元
-                            </p>
+
+                        <div>
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">福州特产购物</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">时间：</span> 09:00 - 11:30
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-shopping-bag mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐地点：</span> 台江步行街、三坊七巷工艺品店
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-gift mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐特产：</span> 寿山石雕、脱胎漆器、福州纸伞、茉莉花茶
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通路线：</span> 从台江步行街步行至三坊七巷（约1.2公里，步行约20分钟）或搭乘5路公交车（约10分钟，票价2元）
+                                </p>
+                                <div class="detailed-route mt-2">
+                                    <p><i class="fas fa-info-circle text-purple-500 mr-1"></i> <span class="font-medium">详细步行路线：</span></p>
+                                    <p class="mt-1">· 从台江步行街北口出发，沿五一南路向北步行</p>
+                                    <p class="mt-1">· 经过台江区政府后继续向前，到达八一七路口右转</p>
+                                    <p class="mt-1">· 沿八一七路步行约500米后左转，即可到达三坊七巷南后街入口</p>
+                                    <p class="mt-1 mt-2"><i class="fas fa-bus text-purple-500 mr-1"></i> <span class="font-medium">公交路线：</span></p>
+                                    <p class="mt-1">· 在"台江步行街站"搭乘5路公交车</p>
+                                    <p class="mt-1">· 乘坐约4站，在"南后街站"下车</p>
+                                    <p class="mt-1">· 下车后步行约200米即可到达三坊七巷</p>
+                                    <p class="mt-1">· 公交车约10-15分钟一班，建议使用高德地图或百度地图查询实时班次</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-lg font-medium text-purple-600">下午</p>
-                        <div class="ml-4">
-                            <p class="flex items-center">
-                                <i class="fas fa-clock mr-2 text-gray-600"></i>
-                                <span class="font-medium">14:00 - 15:30</span> 酒店办理退房
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-suitcase-rolling mr-2 text-gray-600"></i>
-                                <span class="font-medium">活动：</span> 整理行李，办理退房手续
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-info-circle mr-2 text-gray-600"></i>
-                                <span class="font-medium">提示：</span> 可请酒店协助寄存行李
-                            </p>
+                        
+                        <!-- 中午 -->
+                        <div>
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">前往午餐地点</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">时间：</span> 11:30 - 12:00
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                    <span class="font-medium">交通路线：</span> 从三坊七巷步行至春伦茶楼（约800米，步行约10分钟）
+                                </p>
+                                <div class="detailed-route mt-2">
+                                    <p><i class="fas fa-info-circle text-purple-500 mr-1"></i> <span class="font-medium">详细步行路线：</span></p>
+                                    <p class="mt-1">· 从三坊七巷南后街出口出发，向东步行约100米</p>
+                                    <p class="mt-1">· 在第一个路口右转进入杨桥路，向南步行约400米</p>
+                                    <p class="mt-1">· 在杨桥路与五一南路交叉口左转，步行约300米</p>
+                                    <p class="mt-1">· 春伦茶楼位于五一南路1号，即可看到招牌</p>
+                                    <p class="mt-1">· 周六中午餐厅可能较为拥挤，建议提前5-10分钟到达以便等位</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <p class="flex items-center">
-                            <i class="fas fa-clock mr-2 text-gray-600"></i>
-                            <span class="font-medium">16:00 - 18:00</span> 返程
-                        </p>
-                        <div class="ml-4">
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-car mr-2 text-gray-600"></i>
-                                <span class="font-medium">交通：</span> 打车前往车站/机场
-                            </p>
-                            <p class="flex items-center mt-2">
-                                <i class="fas fa-info-circle mr-2 text-gray-600"></i>
-                                <span class="font-medium">提示：</span> 提前2小时到达机场办理登机手续
-                            </p>
+
+                        <div>
+                            <h4 class="font-medium text-lg border-b border-gray-200 pb-1">午餐</h4>
+                            <div class="ml-4 mt-2">
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                    <span class="font-medium">时间：</span> 12:00 - 13:30
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐餐厅：</span> 春伦茶楼（福州老字号餐厅）
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-utensils mr-2 text-gray-600"></i>
+                                    <span class="font-medium">推荐美食：</span> 佛跳墙、锅边糊、米粉
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-money-bill-wave mr-2 text-gray-600"></i>
+                                    <span class="font-medium">人均消费：</span> 约100-150元
+                                </p>
+                                <p class="flex items-center mt-2">
+                                    <i class="fas fa-map-marker-alt mr-2 text-gray-600"></i>
+                                    <span class="font-medium">地址：</span> 台江区五一南路1号
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- 下午 -->
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-medium text-lg border-b border-gray-200 pb-1">返回酒店</h4>
+                                <div class="ml-4 mt-2">
+                                    <p class="flex items-center mt-2">
+                                        <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                        <span class="font-medium">时间：</span> 13:30 - 14:00
+                                    </p>
+                                    <p class="flex items-center mt-2">
+                                        <i class="fas fa-directions mr-2 text-gray-600"></i>
+                                        <span class="font-medium">交通路线：</span> 打车返回酒店（约10分钟，车费约20元）
+                                    </p>
+                                    <div class="detailed-route mt-2">
+                                        <p><i class="fas fa-info-circle text-purple-500 mr-1"></i> <span class="font-medium">详细说明：</span></p>
+                                        <p class="mt-1">· 可在餐厅门口路边打车，或使用打车软件叫车</p>
+                                        <p class="mt-1">· 备选方案：步行至"五一南路"公交站搭乘5路公交车至"八一七路站"下车，步行5分钟可到达酒店（全程约25分钟）</p>
+                                        <p class="mt-1">· 如行李较多，建议直接打车以节省体力</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-medium text-lg border-b border-gray-200 pb-1">酒店办理退房</h4>
+                                <div class="ml-4 mt-2">
+                                    <p class="flex items-center mt-2">
+                                        <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                        <span class="font-medium">时间：</span> 14:00 - 15:30
+                                    </p>
+                                    <p class="flex items-center mt-2">
+                                        <i class="fas fa-suitcase-rolling mr-2 text-gray-600"></i>
+                                        <span class="font-medium">活动：</span> 整理行李，办理退房手续
+                                    </p>
+                                    <p class="flex items-center mt-2">
+                                        <i class="fas fa-info-circle mr-2 text-gray-600"></i>
+                                        <span class="font-medium">提示：</span> 可请酒店协助寄存行李
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-medium text-lg border-b border-gray-200 pb-1">返程</h4>
+                                <div class="ml-4 mt-2">
+                                    <p class="flex items-center mt-2">
+                                        <i class="fas fa-clock mr-2 text-gray-600"></i>
+                                        <span class="font-medium">时间：</span> 16:00 - 18:00
+                                    </p>
+                                    <p class="flex items-center mt-2">
+                                        <i class="fas fa-car mr-2 text-gray-600"></i>
+                                        <span class="font-medium">交通路线：</span> 
+                                    </p>
+                                    <ul class="ml-6 list-disc text-sm">
+                                        <li class="mt-1">前往火车站：乘坐出租车（约20分钟，车费约30元）或乘坐地铁1号线（约25分钟，票价4元）</li>
+                                        <li class="mt-1">前往长乐国际机场：乘坐机场大巴（约1小时，票价25元）或乘坐出租车（约45分钟，车费约150元）</li>
+                                    </ul>
+                                    <div class="detailed-route mt-2">
+                                        <p><i class="fas fa-info-circle text-purple-500 mr-1"></i> <span class="font-medium">前往火车站详细路线：</span></p>
+                                        <p class="mt-1">· <strong>出租车</strong>：从酒店门口直接叫车，约20分钟可到达福州火车站</p>
+                                        <p class="mt-1">· <strong>地铁</strong>：步行至金融街站（约8分钟），乘坐地铁2号线至东街口站，换乘1号线至福州火车站（共3站），出站后步行约3分钟到达火车站</p>
+                                        
+                                        <p class="mt-3"><i class="fas fa-info-circle text-purple-500 mr-1"></i> <span class="font-medium">前往长乐国际机场详细路线：</span></p>
+                                        <p class="mt-1">· <strong>机场大巴</strong>：前往五四路机场大巴站（可打车前往，约15分钟），乘坐机场大巴，发车时间为每30分钟一班，首班6:00，末班21:00</p>
+                                        <p class="mt-1">· <strong>出租车</strong>：从酒店直接打车前往机场，约45分钟可到达，建议使用滴滴等软件提前预约</p>
+                                        <p class="mt-1">· <strong>地铁</strong>：步行至金融街站乘坐地铁2号线至三江口站，换乘地铁1号线至长乐机场站，全程约60分钟（票价约9元）</p>
+                                    </div>
+                                    <p class="flex items-center mt-2">
+                                        <i class="fas fa-info-circle mr-2 text-gray-600"></i>
+                                        <span class="font-medium">提示：</span> 提前2小时到达机场办理登机手续，或提前30分钟到达火车站
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -950,6 +1379,77 @@
         locations.forEach(location => {
             var marker = L.marker([location.lat, location.lng]).addTo(map);
             marker.bindTooltip(location.name, {permanent: true, direction: 'top', offset: [0, -10]});
+        });
+
+        // 时间轴交互
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有时间点
+            const timelinePoints = document.querySelectorAll('.timeline-point');
+            
+            // 为每个时间点添加点击事件
+            timelinePoints.forEach(point => {
+                point.addEventListener('click', function() {
+                    // 获取目标内容区域ID
+                    const targetId = this.getAttribute('data-target');
+                    if(!targetId) return;
+                    
+                    // 获取目标元素
+                    const targetElement = document.getElementById(targetId);
+                    if(!targetElement) return;
+                    
+                    // 滚动到目标位置
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // 添加高亮效果
+                    timelinePoints.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 添加内容高亮效果
+                    const contentSections = document.querySelectorAll('[id^="morning"], [id^="noon"], [id^="afternoon"], [id^="evening"]');
+                    contentSections.forEach(section => {
+                        section.style.transition = 'background-color 0.3s';
+                        section.style.backgroundColor = '';
+                    });
+                    
+                    targetElement.style.backgroundColor = '#f0f9ff';
+                    setTimeout(() => {
+                        targetElement.style.backgroundColor = '';
+                    }, 1500);
+                });
+            });
+            
+            // 监听滚动，高亮当前查看的部分
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                
+                // 获取所有内容区域
+                const contentSections = document.querySelectorAll('[id^="morning"], [id^="noon"], [id^="afternoon"], [id^="evening"]');
+                
+                // 找到当前可见的区域
+                let currentSection = null;
+                contentSections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if(scrollPosition >= sectionTop - 200 && scrollPosition < sectionTop + sectionHeight - 100) {
+                        currentSection = section;
+                    }
+                });
+                
+                // 如果找到可见区域，高亮对应的时间点
+                if(currentSection) {
+                    const sectionId = currentSection.id;
+                    
+                    timelinePoints.forEach(point => {
+                        const targetId = point.getAttribute('data-target');
+                        if(targetId === sectionId) {
+                            point.classList.add('active');
+                        } else {
+                            point.classList.remove('active');
+                        }
+                    });
+                }
+            });
         });
     </script>
 </body>
